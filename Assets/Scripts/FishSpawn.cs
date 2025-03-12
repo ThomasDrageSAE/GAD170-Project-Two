@@ -19,9 +19,9 @@ public class FishSpawn : MonoBehaviour
 
     public void SpawnFish()
     {
-        float x = Random.Range(0, 50);
+        float x = Random.Range(0, 100);
         float y = 1.67f;
-        float z = Random.Range(0, 50);
+        float z = Random.Range(0, 100);
         Instantiate(fishPrefab,new Vector3(x,y,z), Quaternion.identity);
     }
 }
