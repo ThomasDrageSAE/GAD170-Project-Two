@@ -1,37 +1,53 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Water : MonoBehaviour
 {
-    private int waterDamage = 10;
-    private int waterStayDamage = 1;
+    private int waterDamage = 5;
     public ScoreManager scoreManager;
+    public bool playerInWater = false;
+    private float damageTime = 0; // Timer for damage
+    private float damageSeconds = 1; // Amount of seconds for damage to hit
+ 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         scoreManager = FindAnyObjectByType<ScoreManager>();
+        if (scoreManager == null)
+            Debug.LogError("ScoreManager not found!");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    private void OnCollisionEnter(Collision water)
-    {
-        Debug.Log("Hit:" + water.transform.name);
-        if (water.gameObject.tag == "Player")
+        if (playerInWater)
         {
-            scoreManager.playerHealth -= waterDamage; 
+            damageTime += Time.deltaTime;
+            if (damageTime >= damageSeconds)
+            {
+                scoreManager.playerHealth -= waterDamage;
+                damageTime = 0f; // Resets timer
+            }
         }
     }
 
-    private void OnCollisionStay(Collision waterStay)
+    public void OnCollisionEnter(Collision waterEnter) // When entering water, Damage starts.
     {
-        Debug.Log("Hit:" + waterStay.transform.name);
-        if (waterStay.gameObject.tag == "Player")
+        Debug.Log("Hit:" + waterEnter.transform.name);
+        if (waterEnter.gameObject.tag == "Player")
         {
-            scoreManager.playerHealth -= waterStayDamage;
+            scoreManager.playerHealth -= waterDamage;
+            playerInWater = true;
+        }
+    }
+
+    public void OnCollisionExit(Collision waterExit) // When exiting water, Damage stops.
+    {
+        Debug.Log("Exit:" + waterExit.transform.name);
+        if (waterExit.gameObject.tag == "Player")
+        {
+            playerInWater = false;
         }
     }
 }

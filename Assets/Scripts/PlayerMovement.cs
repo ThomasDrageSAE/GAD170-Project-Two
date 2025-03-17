@@ -71,7 +71,16 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = -2f;
         }
- 
+        
+        if (Input.GetKeyDown(KeyCode.LeftShift)) // Sprints by adding to the speed integer on shift being pressed.
+        {
+            speed += 12;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift)) // Stops sprinting when shift is released.
+        {
+            speed -= 12;
+        }
+
         // This fakes gravity!
         velocity.y += gravity * Time.deltaTime;
 
