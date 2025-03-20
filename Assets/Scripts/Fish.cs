@@ -35,8 +35,8 @@ public class Fish : MonoBehaviour
             scoreManager.AddFish(1);
             Cat.PlayOneShot(meow);
             scoreManager.playerHealth += 5;
-            fishSpawn.SpawnFish();
             Destroy(gameObject);
+            fishSpawn.SpawnFish();       
             Debug.Log("Picked up Fish!");
         }
     }

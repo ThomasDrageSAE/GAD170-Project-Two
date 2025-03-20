@@ -16,6 +16,7 @@ public class ScoreManager : MonoBehaviour
     public AudioClip nyan;
     public AudioClip ff7;
     public AudioSource gameMusic;
+    public AudioSource gameOverMusic;
 
     void Start()
     {
@@ -33,6 +34,7 @@ public class ScoreManager : MonoBehaviour
 
         if (playerHealth <= 0)
         {
+            gameOverMusic.PlayOneShot(ff7);
             gameOverScreen.SetActive(true);
 
             if (water.playerInWater == true)
