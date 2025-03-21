@@ -47,7 +47,7 @@ public class ScoreManager : MonoBehaviour
             {
                 Debug.Log(water.playerInWater);
                 waterCat.SetActive(true);
-                helpfullTipText.text = "Cats Don't Like Water!"; // This is text that can be interchanged depending on certain conditions, for this one it only comes ip if the player is in water.
+                helpfullTipText.text = "Cats Don't Like Water!"; // This is text that can be interchanged depending on certain conditions, for this one it only comes up if the player is in water.
 
             }
 
@@ -77,7 +77,7 @@ public class ScoreManager : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
-    public void StartButton() // Here is my button that comes up on win or loss to restart the game.
+    public void StartButton() // Here is my button that comes up on the tutorial screen to start the game.
     {
         tutorialScreen.SetActive(false);
     }
