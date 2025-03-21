@@ -5,39 +5,37 @@ public class Fish : MonoBehaviour
 {
     private ScoreManager scoreManager;
     private FishSpawn fishSpawn;
+    private Timer timer;
     public AudioClip meow;
     public AudioSource Cat;
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // Here is me cross referencing other scripts as I use their functions within this script.
         scoreManager = FindAnyObjectByType<ScoreManager>();
         fishSpawn = FindAnyObjectByType<FishSpawn>();
+        timer = FindAnyObjectByType<Timer>();
 
+        // Here is my check for null to make sure the audio files are assigned.
         if (Cat == null || meow == null)
         {
             Debug.LogWarning("Audio is not assigned!");
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    void OnTriggerEnter(Collider fish) // Here is my trigger function so when the player enters the collider for the fish it adds 1 to the score, then plays a sound, heals the player, destroys the object, then spawns a new one somewhere else
         
-    }
-
-
-    void OnTriggerEnter(Collider fish)
     {
         if (fish.transform.tag == "Player")
         {
             scoreManager.AddFish(1);
             Cat.PlayOneShot(meow);
             scoreManager.playerHealth += 5;
+            timer.time += 5;
             Destroy(gameObject);
             fishSpawn.SpawnFish();       
-            Debug.Log("Picked up Fish!");
+            Debug.Log("Picked up Fish!"); // I have this debug to ensure the collider was working properly.
         }
     }
 }

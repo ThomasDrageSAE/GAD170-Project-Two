@@ -11,17 +11,11 @@ public class FishSpawn : MonoBehaviour
         SpawnFish();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SpawnFish() // Function that spawns a collectible fish, y is fixed to a certain height and x and z is a random range.
     {
-        
-    }
-
-    public void SpawnFish()
-    {
-        float x = Random.Range(0, 10);
+        float x = Random.Range(-100,10);
         float y = 1.67f;
-        float z = Random.Range(0, 10);
+        float z = Random.Range(-40,100);
         Instantiate(fishPrefab,new Vector3(x,y,z), Quaternion.identity);
     }
 }
