@@ -33,8 +33,9 @@ public class Fish : MonoBehaviour
             Cat.PlayOneShot(meow);
             scoreManager.playerHealth += 5;
             timer.time += 5;
+            fishSpawn.SpawnFish();
             Destroy(gameObject);
-            fishSpawn.SpawnFish();       
+                  
             Debug.Log("Picked up Fish!"); // I have this debug to ensure the collider was working properly.
         }
     }
