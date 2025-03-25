@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Runtime.CompilerServices;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -10,14 +11,15 @@ public class ScoreManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI healthText;
     public GameObject gameWinScreen;
-    public TextMeshProUGUI helpfullTipText;
+    public TextMeshProUGUI tipText;
     private Water water;
-    public Timer timer;
+    private Timer timer;
+    private Car car;
     public GameObject gameOverScreen;
     public GameObject tutorialScreen;
-    public GameObject clock;
-    public GameObject car;
-    public GameObject waterCat;
+    public GameObject clockImage;
+    public GameObject carImage;
+    public GameObject waterCatImage;
     public AudioClip nyan;
     public AudioSource gameMusic;
 
@@ -26,44 +28,29 @@ public class ScoreManager : MonoBehaviour
     {
         water = FindAnyObjectByType<Water>();
         timer = FindAnyObjectByType<Timer>();
+        car = FindAnyObjectByType<Car>();
         gameMusic.PlayOneShot(nyan);
     }
     void Update()
     {
         healthText.text = "Health: " + playerHealth;
 
-        //Win Condition, If the player collects 10 fish, a separate canvas acting as a win screen is turned on.
+        //Win Condition, If the player collects 15 fish, a separate canvas acting as a win screen is turned on.
         if (fish >= 15)
         {
             gameWinScreen.SetActive(true);
         }
 
         // Loss Condition, If the player health is 0 or below a canvas acting as a game over screen is turned on
-        if (playerHealth == 0)
+        if (playerHealth <= 0)
         {
-            gameOverScreen.SetActive(true);
-
-            if (water.playerInWater == true)
-            {
-                Debug.Log(water.playerInWater);
-                waterCat.SetActive(true);
-                helpfullTipText.text = "Cats Don't Like Water!"; // This is text that can be interchanged depending on certain conditions, for this one it only comes up if the player is in water.
-
-            }
-
-            else
-            {
-                car.SetActive(true);
-                helpfullTipText.text = "Watch Out For Cars!"; // And as the only other danger is cars I just put the other text in this else statement.
-            }
-
-
+            GameOver();
         }
         if (timer.time <= 0)
         {
             gameOverScreen.SetActive(true);
-            clock.SetActive(true); // This is for a clock image that comes up.
-            helpfullTipText.text = "You Ran Out of Time!"; // This game over screen happens when the timer runs out.
+            clockImage.SetActive(true); // This is for a clock image that comes up.
+            tipText.text = "You Ran Out of Time!"; // This game over screen and text happens when the timer runs out.
         }
     }
 
@@ -80,5 +67,20 @@ public class ScoreManager : MonoBehaviour
     public void StartButton() // Here is my button that comes up on the tutorial screen to start the game.
     {
         tutorialScreen.SetActive(false);
+    }
+    private void GameOver()
+    {
+        gameOverScreen.SetActive(true);
+
+        if (water.playerInWater == true)
+        {
+            tipText.text = "Cats Don't Like Water!"; // This is game over text that can be interchanged depending on certain conditions, for this one it only comes up if the player is in water.
+        }
+
+        if (car.carContact == true)
+        {
+            carImage.SetActive(true);
+            tipText.text = "Watch Out For Cars!"; // And as the only other danger is cars I put the other text in this else statement.
+        }  
     }
 }

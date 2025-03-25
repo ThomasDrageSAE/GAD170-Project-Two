@@ -6,6 +6,7 @@ public class Car : MonoBehaviour
 {
     public int carDamage = 50;
     private ScoreManager scoreManager;
+    public bool carContact = false;
  
     void Start()
     {
@@ -17,7 +18,17 @@ public class Car : MonoBehaviour
         Debug.Log("Hit:" + car.transform.name); // This is my debug to make sure it was working.
         if (car.gameObject.tag == "Player")
         {
+            carContact = true;
+            Debug.Log(carContact);
             scoreManager.playerHealth -= carDamage;
+        }
+    }
+    public void OnTriggerExit(Collider car) 
+    {
+        if (car.gameObject.tag == "Player")
+        {
+            carContact = false;
+            Debug.Log(carContact);
         }
     }
 }
