@@ -4,32 +4,28 @@ using UnityEngine.SceneManagement;
 
 public class Water : MonoBehaviour
 {
-    private int waterDamage = 3;
+    private int waterDamage = 5;
     private ScoreManager scoreManager;
-    public bool playerInWater = false;
-    private float damageTime = 0; // Timer for damage
-    private float damageSeconds = 1; // Amount of seconds for damage to hit
+    public bool playerInWater = false, isWater = false; // Booleans for if the player is in water and if the water is toggled on or off.
+    private float damageTime = 0, damageSeconds = 1; // Timer for damage and Amount of seconds for damage to hit.
     public MeshRenderer meshRenderer;
-    public Material water;
-    public Material empty;
-    public bool isWater = false;
-    public float seconds = 3;
-    public float time = 0;
+    public Material water, empty;
+    public float seconds = 3, time = 0; // Timer for when the water toggles on and off.
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Start is called once before the first execution of Update after the MonoBehaviour is created.
     void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
         scoreManager = FindAnyObjectByType<ScoreManager>();
-        if (scoreManager == null)
+        if (scoreManager == null) // check for null to make sure the script is assigned.
             Debug.LogError("ScoreManager not found!");
     }
 
     // Update is called once per frame
     void Update()
     {
-        WaterTimer();
-        if (playerInWater)
+        WaterTimer(); // Starts the function for the water toggling, then constanly checks if the player has stepped in water.
+        if (playerInWater == true)
         {
             damageTime += Time.deltaTime;
             if (damageTime >= damageSeconds)
@@ -43,24 +39,40 @@ public class Water : MonoBehaviour
 
     public void OnTriggerEnter(Collider waterEnter) // When entering water, Damage starts.
     {
-        if (isWater)
+        if (waterEnter.gameObject.tag == "Player" && isWater == true)
         {
-            Debug.Log("Hit:" + waterEnter.transform.name);
+        
+            
+                Debug.Log("Hit:" + waterEnter.transform.name);
+                Debug.Log(playerInWater);
+                playerInWater = true;
+            
+        }
+    }
+    public void OnTriggerStay(Collider waterStay) // When staying in water, Damage keeps going.
+    {
+        if (waterStay.gameObject.tag == "Player" && isWater == true)
+        {
+
+
+            Debug.Log("Hit:" + waterStay.transform.name);
             Debug.Log(playerInWater);
             playerInWater = true;
+
         }
     }
 
     public void OnTriggerExit(Collider waterExit) // When exiting water, Damage stops.
     {
-        if (isWater)
+        if (waterExit.gameObject.tag == "Player")
         {
-            Debug.Log("Exit:" + waterExit.transform.name);
-            playerInWater = false;
+                Debug.Log("Exit:" + waterExit.transform.name);
+                playerInWater = false;
+            
         }
     }
 
-    public void WaterTimer()
+    public void WaterTimer() // This toggles the water on and off every 3 seconds.
     {
         time += Time.deltaTime;
         if (time >= seconds && isWater == true)

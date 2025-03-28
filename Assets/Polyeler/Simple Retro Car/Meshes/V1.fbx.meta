@@ -26,6 +26,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: illumination
     second: {fileID: 2100000, guid: dcc4d1446ac4b6247b4efd43603c13f6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "\u30DE\u30C6\u30EA\u30A2\u30EB"
+    second: {fileID: 2100000, guid: 7e839a9411bd06241b78b3e681df6a9f, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

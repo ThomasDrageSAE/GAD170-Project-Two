@@ -8,24 +8,18 @@ public class ScoreManager : MonoBehaviour
 
     public int fish = 0;
     public int playerHealth = 100;
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI healthText;
-    public GameObject gameWinScreen;
-    public TextMeshProUGUI tipText;
+    public TextMeshProUGUI scoreText, healthText, tipText;
     private Water water;
     private Timer timer;
     private Car car;
-    public GameObject gameOverScreen;
-    public GameObject tutorialScreen;
-    public GameObject clockImage;
-    public GameObject carImage;
-    public GameObject waterCatImage;
+    public GameObject gameOverScreen, gameWinScreen, tutorialScreen, clockImage, carImage, waterCatImage;
     public AudioClip nyan;
     public AudioSource gameMusic;
 
 
     void Start()
     {
+        healthText.text = "Health: " + playerHealth;
         water = FindAnyObjectByType<Water>();
         timer = FindAnyObjectByType<Timer>();
         car = FindAnyObjectByType<Car>();
@@ -60,27 +54,20 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = "Fish: " + fish;
     }
 
-    public void RestartButton() // Here is my button that comes up on win or loss to restart the game.
+    public void GameOver()
     {
-        SceneManager.LoadScene(1);
-    }
-    public void StartButton() // Here is my button that comes up on the tutorial screen to start the game.
-    {
-        tutorialScreen.SetActive(false);
-    }
-    private void GameOver()
-    {
-        gameOverScreen.SetActive(true);
 
         if (water.playerInWater == true)
         {
+            gameOverScreen.SetActive(true);
             tipText.text = "Cats Don't Like Water!"; // This is game over text that can be interchanged depending on certain conditions, for this one it only comes up if the player is in water.
         }
 
-        if (car.carContact == true)
+        else
         {
+            gameOverScreen.SetActive(true);
             carImage.SetActive(true);
-            tipText.text = "Watch Out For Cars!"; // And as the only other danger is cars I put the other text in this else statement.
+            tipText.text = "Watch Out For Cars!"; // And this one happens if hit by a car.
         }  
     }
 }

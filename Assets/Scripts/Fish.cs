@@ -8,6 +8,7 @@ public class Fish : MonoBehaviour
     private Timer timer;
     public AudioClip meow;
     public AudioSource Cat;
+    private ParticleSystem smoke;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -16,6 +17,7 @@ public class Fish : MonoBehaviour
         scoreManager = FindAnyObjectByType<ScoreManager>();
         fishSpawn = FindAnyObjectByType<FishSpawn>();
         timer = FindAnyObjectByType<Timer>();
+        smoke = GetComponent<ParticleSystem>();
 
         // Here is my check for null to make sure the audio files are assigned.
         if (Cat == null || meow == null)
@@ -29,6 +31,7 @@ public class Fish : MonoBehaviour
     {
         if (fish.transform.tag == "Player")
         {
+            smoke.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             scoreManager.AddFish(1);
             Cat.PlayOneShot(meow);
             scoreManager.playerHealth += 5;
