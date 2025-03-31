@@ -7,7 +7,7 @@ public class Water : MonoBehaviour
     private int waterDamage = 5;
     private ScoreManager scoreManager;
     public bool playerInWater = false, isWater = false; // Booleans for if the player is in water and if the water is toggled on or off.
-    private float damageTime = 0, damageSeconds = 1; // Timer for damage and Amount of seconds for damage to hit.
+    private float damageTime = 0, damageSeconds = 0.5f; // Timer for damage and Amount of seconds for damage to hit.
     public MeshRenderer meshRenderer;
     public Material water, empty;
     public float seconds = 3, time = 0; // Timer for when the water toggles on and off.

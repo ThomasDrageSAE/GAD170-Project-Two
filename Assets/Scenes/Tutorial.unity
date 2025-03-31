@@ -323,6 +323,15 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4213344202523501369, guid: 5145695042a5b9343ab4ad5520c85680, type: 3}
+      propertyPath: m_text
+      value: 'Collect 10 fish before the time runs out to win!
+
+        -When you
+        get a fish it adds time
+
+        Watch out for cars and water!'
+      objectReference: {fileID: 0}
     - target: {fileID: 4381989480110367150, guid: 5145695042a5b9343ab4ad5520c85680, type: 3}
       propertyPath: m_Controller
       value: 

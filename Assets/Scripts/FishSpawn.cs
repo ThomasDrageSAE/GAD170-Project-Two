@@ -13,7 +13,7 @@ public class FishSpawn : MonoBehaviour
 
     public void SpawnFish() // Function that spawns a collectible fish, y is fixed to a certain height and x and z is a random range.
     {
-        float x = Random.Range(-100,10);
+        float x = Random.Range(-150,10);
         float y = 1.67f;
         float z = Random.Range(0,100);
 

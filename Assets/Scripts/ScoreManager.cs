@@ -30,7 +30,7 @@ public class ScoreManager : MonoBehaviour
         healthText.text = "Health: " + playerHealth;
 
         //Win Condition, If the player collects 15 fish, a separate canvas acting as a win screen is turned on.
-        if (fish >= 15)
+        if (fish >= 10)
         {
             gameWinScreen.SetActive(true);
         }
